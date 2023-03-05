@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Licznik ceny pojazdu</title>
+    <link rel="stylesheet" href="style.css">
+	<script type="text/javascript">
+		// Słownik zawierający nazwy części i ich ceny
+		var cennik = {
+            'ECU_V1': 5250,
+            'ECU_V2': 9000,
+            'ECU_V3': 15000,
+			'ECU_V4': 20000,
+            'Turbo_V1': 7500,
+            'Turbo_V2': 12500,
+            'Turbo_V3': 20000,
+            'Turbo_V4': 25000,
+			'Turbo_V5': 30000,
+            'Zestaw.U': 25000,
+            'Zestaw.W': 50000,
+            'Zestaw.D': 75000,
+            'Zestaw.T': 125000,
+            'C.F.I_V1': 62500,
+            'C.F.I_V2': 75000,
+            'C.F.I_V3': 87500,
+            'C.F.I_V4': 112500,
+            'C.F.I_V5': 125000,
+            'MZN': 37500,
+            'Radio': 250,
+            'CB': 750,
+            'Ogranicznik': 1000,
+            'Wykrywacz_Fotoradarów': 1250,
+            'ABS': 7500,
+            'GZ': 16250,
+            'Hydra': 22500,
+		};
+
+		// Funkcja obliczająca łączną cenę pojazdu
+		function obliczCene(cena_pojazdu) {
+			var wybrane_czesci = [];
+			var checkboxes = document.getElementsByName('czesci');
+			for (var i = 0; i < checkboxes.length; i++) {
+				if (checkboxes[i].checked) {
+					wybrane_czesci.push(checkboxes[i].value);
+				}
+			}
+			var lacznacena = 0;
+			for (var j = 0; j < wybrane_czesci.length; j++) {
+				lacznacena += cennik[wybrane_czesci[j]];
+			}
+			lacznacena += parseFloat(cena_pojazdu);
+			document.getElementById('cena').innerHTML = lacznacena + ' $';
+		}
+	</script>
+</head>
+<body>
+	<h1>Licznik ceny pojazdu</h1>
+	<form>
+        <label>Cena pojazdu: <input type="text" name="cena_pojazdu" id="cena_pojazdu"></label>
+        <h3>Tuning Mechaniczny</h3>
+        <h5>ECU</h5>
+        <label><input type="checkbox" name="czesci" value="ECU_V1"> ECU V1</label><br>
+        <label><input type="checkbox" name="czesci" value="ECU_V2"> ECU V2</label><br>
+        <label><input type="checkbox" name="czesci" value="ECU_V3"> ECU V3</label><br>
+        <label><input type="checkbox" name="czesci" value="ECU_V4"> ECU V4</label>
+        <h5>Turbo</h5>
+        <label><input type="checkbox" name="czesci" value="Turbo_V1"> Turbo V1</label><br>
+        <label><input type="checkbox" name="czesci" value="Turbo_V2"> Turbo V2</label><br>
+        <label><input type="checkbox" name="czesci" value="Turbo_V3"> Turbo V3</label><br>
+        <label><input type="checkbox" name="czesci" value="Turbo_V4"> Turbo V4</label><br>
+        <label><input type="checkbox" name="czesci" value="Turbo_V5"> Turbo V5</label>
+        <h5>Zestawy</h5>
+        <label><input type="checkbox" name="czesci" value="Zestaw.U"> Zestaw Uliczny</label><br>
+        <label><input type="checkbox" name="czesci" value="Zestaw.W"> Zestaw Wyścigowy</label><br>
+        <label><input type="checkbox" name="czesci" value="Zestaw.D"> Zestaw Drifterski</label><br>
+        <label><input type="checkbox" name="czesci" value="Zestaw.T"> Zestaw Torowy</label>
+        <h5>C.F.I</h5>
+        <label><input type="checkbox" name="czesci" value="C.F.I_V1"> C.F.I V1</label><br>
+        <label><input type="checkbox" name="czesci" value="C.F.I_V2"> C.F.I V2</label><br>
+        <label><input type="checkbox" name="czesci" value="C.F.I_V3"> C.F.I V3</label><br>
+        <label><input type="checkbox" name="czesci" value="C.F.I_V4"> C.F.I V4</label><br>
+        <label><input type="checkbox" name="czesci" value="C.F.I_V5"> C.F.I V5</label>
+        <h5>Pozostałe</h5>
+        <label><input type="checkbox" name="czesci" value="MZN"> Moduł Zmiany Napędu</label><br>
+        <label><input type="checkbox" name="czesci" value="Radio"> Radio</label><br>
+        <label><input type="checkbox" name="czesci" value="CB"> CB-Radio</label><br>
+        <label><input type="checkbox" name="czesci" value="Ogranicznik"> Ogranicznik</label><br>
+        <label><input type="checkbox" name="czesci" value="Wykrywacz_Fotoradarów"> Wykrywacz Fotoradarów</label><br>
+        <label><input type="checkbox" name="czesci" value="ABS"> System ABS</label><br>
+        <label><input type="checkbox" name="czesci" value="GZ"> Gwintowane Zawieszenie</label><br>
+        <label><input type="checkbox" name="czesci" value="Hydra"> Hydraulika</label>
+        <h3>Tuning Wizualny</h3>
+        <label><input type="checkbox" name="czesci" value=""> </label><br>
+		<button type="button" onclick="obliczCene(document.getElementById('cena_pojazdu').value)">Oblicz cenę</button>
+	</form>
+	<p>Łączna cena pojazdu wynosi: <span id="cena"></span></p>
+</body>
+</html>
